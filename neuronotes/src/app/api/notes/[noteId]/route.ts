@@ -1,5 +1,5 @@
-import {Notes} from '@/lib/db/models';
-import {connectToDatabase} from '@/lib/db/mongoose';
+import {Notes} from '../../../../lib/db/model';
+import {connectToDatabase} from '../../../../lib/db/mongoose';
 import {NextResponse, NextRequest} from 'next/server';
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ noteId: string }>}) {

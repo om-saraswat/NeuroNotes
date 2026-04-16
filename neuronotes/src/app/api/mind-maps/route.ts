@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Innertube, UniversalCache } from 'youtubei.js';
 import { AzureOpenAI } from "openai";
-import { connectToDatabase } from '../../../../lib/db/mongoose';
-import { Notes, MindMap, Chapter, User, UserGenerationStatus } from '../../../../lib/db/model';
+import { connectToDatabase } from '../../../lib/db/mongoose';
+import { Notes, MindMap, Chapter, User, UserGenerationStatus } from '../../../lib/db/model';
 import mongoose from 'mongoose';
 
 interface YoutubeVideo {
