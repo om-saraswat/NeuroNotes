@@ -1,52 +1,89 @@
-import NextAuth from "next-auth"
+import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import GithubProvider from "next-auth/providers/github"
 import mongoose from "mongoose"
 
-const MONGODB_URI = process.env.MONGODB_URI
+/* -------------------- ENV -------------------- */
+
+const MONGODB_URI = process.env.MONGODB_URI as string
 
 if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable")
 }
 
-let cached = global._mongoose || { conn: null, promise: null }
-if (!cached.promise) {
-  cached.promise = mongoose.connect(MONGODB_URI, { bufferCommands: false }).then(m => m.connection)
+/* -------------------- MONGOOSE CACHE -------------------- */
+
+declare global {
+  // eslint-disable-next-line no-var
+  var _mongoose: {
+    conn: typeof mongoose | null
+    promise: Promise<typeof mongoose> | null
+  }
 }
-global._mongoose = cached
+
+let cached = global._mongoose
+
+if (!cached) {
+  cached = global._mongoose = { conn: null, promise: null }
+}
 
 async function dbConnect() {
   if (cached.conn) return cached.conn
+
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGODB_URI)
+  }
+
   cached.conn = await cached.promise
   return cached.conn
 }
 
-const UserSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  image: String
-}, { timestamps: true })
+/* -------------------- USER MODEL -------------------- */
 
-const User = mongoose.models.User || mongoose.model("User", UserSchema)
+const UserSchema = new mongoose.Schema(
+  {
+    name: String,
+    email: { type: String, unique: true },
+    image: String
+  },
+  { timestamps: true }
+)
 
-const authOptions = {
-  session: { strategy: "jwt" },
+const User =
+  mongoose.models.User || mongoose.model("User", UserSchema)
+
+/* -------------------- AUTH OPTIONS -------------------- */
+
+export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt"
+  },
+
   secret: process.env.NEXTAUTH_SECRET,
+
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!
     }),
+
     GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!
     })
   ],
+
+  pages: {
+    signIn: "/login"
+  },
+
   callbacks: {
-    jwt: async ({ token, user }) => {
+    async jwt({ token, user }) {
       await dbConnect()
+
       if (user) {
         let dbUser = await User.findOne({ email: user.email })
+
         if (!dbUser) {
           dbUser = await User.create({
             name: user.name,
@@ -54,22 +91,27 @@ const authOptions = {
             image: user.image
           })
         }
+
         token.id = dbUser._id.toString()
       } else {
         const dbUser = await User.findOne({ email: token.email })
         if (dbUser) token.id = dbUser._id.toString()
       }
+
       return token
     },
-    session: async ({ session, token }) => {
-      session.user.id = token.id;
-      return session;
-    },
-    pages: {
-      signIn: '/login', 
+
+    async session({ session, token }) {
+      if (session.user) {
+        ;(session.user as any).id = token.id
+      }
+      return session
     }
   }
 }
 
+/* -------------------- HANDLER -------------------- */
+
 const handler = NextAuth(authOptions)
+
 export { handler as GET, handler as POST }
