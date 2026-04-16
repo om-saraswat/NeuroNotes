@@ -5,7 +5,6 @@ import { connectToDatabase } from '../../../../lib/db/mongoose';
 import { Notes, MindMap, Chapter, User, UserGenerationStatus } from '../../../../lib/db/model';
 import mongoose from 'mongoose';
 
-// Types
 interface YoutubeVideo {
   title: string;
   url: string;
@@ -169,7 +168,7 @@ async function fetchYouTubeVideosForTopics(topics: string[]): Promise<TopicWithV
         
         const youtubeVideos: YoutubeVideo[] = [];
         for (const item of search.videos) {
-          if ( 
+          if (
             item &&
             (item as any).type === 'Video' &&
             typeof (item as any).id === 'string' &&
@@ -233,6 +232,65 @@ async function fetchYouTubeVideosForTopics(topics: string[]): Promise<TopicWithV
       ],
     }));
   }
+}
+
+
+async function processMindMapWithModels(rootNode: any): Promise<any> {
+  // Create a deep clone of the mind map
+  const clonedMindMap = JSON.parse(JSON.stringify(rootNode));
+  let notesCount = 0;
+  
+  // Recursive function to traverse and process nodes
+  async function traverseAndProcess(node: any): Promise<void> {
+    // Process resources in the current node
+    if (node.resources && Array.isArray(node.resources)) {
+      for (let i = 0; i < node.resources.length; i++) {
+        const resource = node.resources[i];
+        
+        // Process md_notes resources by creating notes records
+        if (resource.type === 'md_notes' && resource.data?.description) {
+          notesCount++;
+          console.log(`Processing notes for "${node.title}": "${resource.data.description.substring(0, 50)}..."`);
+          
+          try {
+            // Create notes record directly using the Notes model
+            const newNote = new Notes({
+              description: resource.data.description,
+              content: null, // Explicitly set content to null
+              createdAt: new Date()
+            });
+            
+            const savedNote = await newNote.save();
+            const noteId = savedNote._id.toString();
+            
+            console.log(`Created notes record with ID: ${noteId} for "${node.title}"`);
+            
+            // Update the resource with the notes ID and remove description
+            resource.data.id = noteId;
+            delete resource.data.description;
+            
+            console.log(`Successfully updated resource for "${node.title}" with notes ID: ${noteId}`);
+          } catch (error) {
+            console.error(`Error creating notes record for topic "${node.title}":`, error);
+            // Keep the description in case of error
+          }
+        }
+      }
+    }
+    
+    // Recursively process subtopics
+    if (node.subtopics && node.subtopics.length > 0) {
+      for (const subtopic of node.subtopics) {
+        await traverseAndProcess(subtopic);
+      }
+    }
+  }
+  
+  // Start processing from the root node
+  await traverseAndProcess(clonedMindMap);
+  
+  console.log(`Successfully processed mind map with ${notesCount} notes resources`);
+  return clonedMindMap;
 }
 
 async function generateMindMapStructure(topicsWithVideos: TopicWithVideo[], chapterTitle: string) {
@@ -393,62 +451,4 @@ async function generateMindMapStructure(topicsWithVideos: TopicWithVideo[], chap
     console.error("Error parsing mind map data:", error);
     throw new Error("Failed to parse the generated mind map data");
   }
-}
-
-async function processMindMapWithModels(rootNode: any): Promise<any> {
-  // Create a deep clone of the mind map
-  const clonedMindMap = JSON.parse(JSON.stringify(rootNode));
-  let notesCount = 0;
-  
-  // Recursive function to traverse and process nodes
-  async function traverseAndProcess(node: any): Promise<void> {
-    // Process resources in the current node
-    if (node.resources && Array.isArray(node.resources)) {
-      for (let i = 0; i < node.resources.length; i++) {
-        const resource = node.resources[i];
-        
-        // Process md_notes resources by creating notes records
-        if (resource.type === 'md_notes' && resource.data?.description) {
-          notesCount++;
-          console.log(`Processing notes for "${node.title}": "${resource.data.description.substring(0, 50)}..."`);
-          
-          try {
-            // Create notes record directly using the Notes model
-            const newNote = new Notes({
-              description: resource.data.description,
-              content: null, // Explicitly set content to null
-              createdAt: new Date()
-            });
-            
-            const savedNote = await newNote.save();
-            const noteId = savedNote._id.toString();
-            
-            console.log(`Created notes record with ID: ${noteId} for "${node.title}"`);
-            
-            // Update the resource with the notes ID and remove description
-            resource.data.id = noteId;
-            delete resource.data.description;
-            
-            console.log(`Successfully updated resource for "${node.title}" with notes ID: ${noteId}`);
-          } catch (error) {
-            console.error(`Error creating notes record for topic "${node.title}":`, error);
-            // Keep the description in case of error
-          }
-        }
-      }
-    }
-    
-    // Recursively process subtopics
-    if (node.subtopics && node.subtopics.length > 0) {
-      for (const subtopic of node.subtopics) {
-        await traverseAndProcess(subtopic);
-      }
-    }
-  }
-  
-  // Start processing from the root node
-  await traverseAndProcess(clonedMindMap);
-  
-  console.log(`Successfully processed mind map with ${notesCount} notes resources`);
-  return clonedMindMap;
 }
