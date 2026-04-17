@@ -217,7 +217,7 @@ export function AddExamCard({ onSave, onCancel }: AddExamCardProps) {
               placeholder="Enter exam description" 
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="min-h-[100px] border border-gray-200 dark:border-white/20"
+              className="min-h-25 border border-gray-200 dark:border-white/20"
               disabled={isSubmitting}
             />
           </div>
@@ -246,8 +246,7 @@ export function AddExamCard({ onSave, onCancel }: AddExamCardProps) {
                   selected={examDate}
                   onSelect={setExamDate}
                   initialFocus
-                  disabled={[isSubmitting,{before: new Date()}]} 
-                  // disabled={isSubmitting}// Disable past dates
+                  disabled={(date) => date < new Date()}
                 />
               </PopoverContent>
             </Popover>

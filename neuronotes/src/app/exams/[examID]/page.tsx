@@ -267,7 +267,7 @@ const ExamDetailsPage = () => {
   // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-700 dark:text-gray-300">Loading exam details...</p>
@@ -279,7 +279,7 @@ const ExamDetailsPage = () => {
   // Error state
   if (error || !examData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 flex items-center justify-center">
         <div className="max-w-md mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg">
           <h2 className="text-2xl font-bold text-red-500 mb-4">Error</h2>
           <p className="text-gray-700 dark:text-gray-300 mb-4">{error || 'Failed to load exam data'}</p>
@@ -295,10 +295,10 @@ const ExamDetailsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-black dark:to-gray-900">
+    <div className="min-h-screen bg-linear-to-br from-white to-gray-50 dark:from-black dark:to-gray-900">
       {/* Header */}
       <div className="relative">
-        <div className="bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-black dark:via-gray-900 dark:to-black text-gray-800 dark:text-white">
+        <div className="bg-linear-to-br from-gray-200 via-gray-100 to-gray-200 dark:from-black dark:via-gray-900 dark:to-black text-gray-800 dark:text-white">
           <div className="max-w-5xl mx-auto px-8 py-12">
             <div className="text-center relative">
               {/* Delete button positioned at the top right */}
@@ -316,7 +316,7 @@ const ExamDetailsPage = () => {
             </div>
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white dark:from-black to-transparent"></div>
+        <div className="absolute inset-x-0 bottom-0 h-8 bg-linear-to-t from-white dark:from-black to-transparent"></div>
       </div>
 
       {/* Main Content */}
@@ -324,7 +324,7 @@ const ExamDetailsPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           {/* Info Card - combined or description-only */}
           <div className={`${examData.description ? 'lg:col-span-2' : 'lg:col-span-3'} bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden`}>
-            <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-black dark:to-gray-800 px-8 py-6">
+            <div className="bg-linear-to-br from-gray-200 to-gray-300 dark:from-black dark:to-gray-800 px-8 py-6">
               <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 flex items-center">
                 <FileText className="mr-3 h-6 w-6" />
                 Exam Overview
@@ -338,7 +338,7 @@ const ExamDetailsPage = () => {
               ) : (
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
                   <div className="flex-1">
-                    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div className="bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
                       <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Course Summary</h3>
                       <p className="text-gray-600 dark:text-gray-300">
                         This course covers all essential topics required for the {examData.subjectName} exam. 
@@ -380,7 +380,7 @@ const ExamDetailsPage = () => {
           {/* Date Info Card - only show separately when there is a description */}
           {examData.description && (
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-              <div className="bg-gradient-to-r from-gray-300 to-gray-200 dark:from-gray-800 dark:to-black px-6 py-6">
+              <div className="bg-linear-to-br from-gray-300 to-gray-200 dark:from-gray-800 dark:to-black px-6 py-6">
                 <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 flex items-center">
                   <Calendar className="mr-3 h-6 w-6" />
                   Timeline
@@ -407,7 +407,7 @@ const ExamDetailsPage = () => {
         </div>
         {/* Quick Actions Section */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-12">
-          <div className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-black dark:via-gray-900 dark:to-black px-8 py-6">
+          <div className="bg-linear-to-br from-gray-200 via-gray-300 to-gray-200 dark:from-black dark:via-gray-900 dark:to-black px-8 py-6">
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 flex items-center justify-center">
               <Brain className="mr-3 h-6 w-6" />
               Quick Actions
@@ -428,7 +428,7 @@ const ExamDetailsPage = () => {
                       className={`w-full group relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 
                         ${(chapters.length === 0) || !userId || userGeneratingQuizStatus || userGeneratingStatus
                           ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed border border-gray-200 dark:border-gray-700' 
-                          : 'bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-700 dark:hover:to-gray-600 border border-gray-200 dark:border-gray-600 shadow-sm hover:shadow-md'} 
+                          : 'bg-linear-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-700 dark:hover:to-gray-600 border border-gray-200 dark:border-gray-600 shadow-sm hover:shadow-md'} 
                         rounded-xl transition-all duration-300 ease-in-out transform hover:scale-105`}
                     >
                       {userGeneratingQuizStatus ? (
@@ -450,7 +450,7 @@ const ExamDetailsPage = () => {
                         <>
                           <FileText className="h-5 w-5 text-gray-700 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-200" />
                           <span className="text-gray-700 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-200 font-medium">Generate Quiz</span>
-                          <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                          <div className="absolute bottom-0 left-0 w-full h-0.5 bg-linear-to-br from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                         </>
                       )}
                     </button>
@@ -463,14 +463,14 @@ const ExamDetailsPage = () => {
                 <button
                   onClick={() => setIsQuizModalOpen(true)}
                   className="w-full group relative overflow-hidden flex items-center justify-center gap-3 px-6 py-4 
-                    bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 
+                    bg-linear-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 
                     hover:from-gray-200 hover:to-gray-300 dark:hover:from-gray-700 dark:hover:to-gray-600 
                     border border-gray-200 dark:border-gray-600 rounded-xl shadow-sm hover:shadow-md 
                     transition-all duration-300 ease-in-out transform hover:scale-105"
                 >
                   <Play className="h-5 w-5 text-gray-700 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-200" />
                   <span className="text-gray-700 dark:text-gray-300 group-hover:text-gray-800 dark:group-hover:text-gray-200 font-medium">View Quiz</span>
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-linear-to-br from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                 </button>
               </div>
             </div>
@@ -480,7 +480,7 @@ const ExamDetailsPage = () => {
 
         {/* Chapters Section */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-          <div className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-black dark:via-gray-900 dark:to-black px-8 py-8">
+          <div className="bg-linear-to-br from-gray-200 via-gray-300 to-gray-200 dark:from-black dark:via-gray-900 dark:to-black px-8 py-8">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center justify-center">
               <BookOpen className="mr-4 h-8 w-8" />
               Course Syllabus
@@ -498,7 +498,7 @@ const ExamDetailsPage = () => {
                   <div key={index} className="group">
                     {/* Chapter Header */}
                     <div className="flex items-start mb-6">
-                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-gray-300 to-gray-400 dark:from-black dark:to-gray-800 text-gray-800 dark:text-gray-100 rounded-xl flex items-center justify-center font-bold text-lg mr-6 shadow-lg">
+                      <div className="shrink-0 w-12 h-12 bg-linear-to-br from-gray-300 to-gray-400 dark:from-black dark:to-gray-800 text-gray-800 dark:text-gray-100 rounded-xl flex items-center justify-center font-bold text-lg mr-6 shadow-lg">
                         {index + 1}
                       </div>
                       <div className="flex-1">
@@ -507,7 +507,7 @@ const ExamDetailsPage = () => {
                         </h3>
                         
                         {/* Topics as comma-separated paragraph */}
-                        <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                        <div className="bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                           <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base">
                             {chapter.content.join(', ')}
                           </p>
@@ -525,10 +525,10 @@ const ExamDetailsPage = () => {
                                 Start Learning
                               </span>
                               <div className="relative flex items-center justify-center w-6 h-6">
-                                <div className="absolute inset-0 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-800 dark:to-black rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300"></div>
+                                <div className="absolute inset-0 bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-black rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300"></div>
                                 <ArrowRight className="h-4 w-4 text-gray-500 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white transition-colors duration-200 relative z-10" />
                               </div>
-                              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-linear-to-br from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                             </Link>
                           ) : (
                             // Mind map doesn't exist - Show Generate Mind Map button
@@ -561,10 +561,10 @@ const ExamDetailsPage = () => {
                                     Generate Mind Map
                                   </span>
                                   <div className="relative flex items-center justify-center w-6 h-6">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-800 dark:to-black rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300"></div>
+                                    <div className="absolute inset-0 bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-black rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300"></div>
                                     <ArrowRight className="h-4 w-4 text-gray-500 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white transition-colors duration-200 relative z-10" />
                                   </div>
-                                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-gray-300 to-gray-200 dark:from-gray-700 dark:to-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-linear-to-br from-gray-300 to-gray-200 dark:from-gray-700 dark:to-gray-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                                 </>
                               )}
                             </button>

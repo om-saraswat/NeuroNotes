@@ -1,13 +1,13 @@
-import { Exam, Chapter, MindMap, Notes } from '@/lib/db/models';
-import { connectToDatabase } from '@/lib/db/mongoose';
+import { Exam, Chapter, MindMap, Notes } from '../../../../lib/db/model';
+import { connectToDatabase } from '../../../../lib/db/mongoose';
 import { NextResponse, NextRequest } from 'next/server';
 import mongoose from 'mongoose';
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ examId: string }> }) {
+export async function GET(request: NextRequest, { params }: { params: { examId: string } }) {
     try {
         await connectToDatabase(); // Connect inside the handler
         
-        const { examId } = await params
+        const { examId } = params
         const exam = await Exam.findOne({ _id: examId });
 
         if (exam) {

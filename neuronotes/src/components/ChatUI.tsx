@@ -357,7 +357,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
       <RangeSliderStyles />
       
       {/* Header */}
-      <div className="flex-shrink-0 border-b border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/90 px-6 py-4">
+      <div className="shrink-0 border-b border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/90 px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold tracking-tight">AI Assistant</h2>
@@ -518,7 +518,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
       </div>
 
       {/* Input */}
-      <div className="flex-shrink-0 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/90 px-6 py-4">
+      <div className="shrink-0 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/90 px-6 py-4">
         <div className="flex items-end gap-3">
           <div className="flex-1">
             <textarea
@@ -539,7 +539,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
           <button
             onClick={handleSend}
             disabled={!inputMessage.trim() || isLoading}
-            className="flex-shrink-0 w-11 h-11 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            className="shrink-0 w-11 h-11 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

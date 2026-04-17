@@ -38,7 +38,7 @@ const chapterSchema = new mongoose.Schema({
   mindmapId: { type: mongoose.Schema.Types.ObjectId, ref: 'MindMap' },
   order: { type: Number, default: 0 }, // Adding order field to maintain chapter sequence
 });
-chapterSchema.index({ ExamId: 1 });
+chapterSchema.index({ examId: 1 });
 
 const notesSchema = new mongoose.Schema({
   content: { 

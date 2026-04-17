@@ -7,7 +7,7 @@ export default function SignUpPage() {
   const { data: session } = useSession();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-black dark:to-slate-900 flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-black dark:to-slate-900 flex flex-col relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:32px_32px]"></div>
 
@@ -19,7 +19,7 @@ export default function SignUpPage() {
         {session ? (
           <Card className="w-full max-w-md backdrop-blur-sm bg-white/80 dark:bg-black/80 border-slate-200/50 dark:border-slate-800/50 shadow-2xl shadow-black/5 dark:shadow-black/20">
             <CardHeader className="text-center pb-2">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 rounded-full flex items-center justify-center mb-4 shadow-lg">
+              <div className="mx-auto w-16 h-16 bg-linear-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 rounded-full flex items-center justify-center mb-4 shadow-lg">
                 <svg
                   className="w-8 h-8 text-white dark:text-black"
                   fill="currentColor"
@@ -60,7 +60,7 @@ export default function SignUpPage() {
         ) : (
           <Card className="w-full max-w-md backdrop-blur-sm bg-white/80 dark:bg-black/80 border-slate-200/50 dark:border-slate-800/50 shadow-2xl shadow-black/5 dark:shadow-black/20">
             <CardHeader className="text-center pb-2">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 rounded-full flex items-center justify-center mb-4 shadow-lg">
+              <div className="mx-auto w-16 h-16 bg-linear-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 rounded-full flex items-center justify-center mb-4 shadow-lg">
                 <svg
                   className="w-8 h-8 text-white dark:text-black"
                   fill="none"

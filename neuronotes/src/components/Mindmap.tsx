@@ -323,7 +323,7 @@ const MindMap: React.FC<MindMapProps> = ({
         className={`relative flex-1 transition-all duration-500 overflow-hidden rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-100/80 dark:bg-zinc-800/50 backdrop-blur-sm shadow-lg ${is3DView ? 'transform-style-3d perspective-1000' : ''}`}
       >
         {/* Animated background */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 opacity-80">
+        <div className="absolute inset-0 z-0 bg-linear-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 opacity-80">
           <div className="absolute inset-0 opacity-20 bg-grid-gray-300 dark:bg-grid-zinc-600/20 bg-[size:20px_20px]"></div>
         </div>
         

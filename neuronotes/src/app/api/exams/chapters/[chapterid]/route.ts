@@ -1,4 +1,4 @@
-import { Chapter } from '@/lib/db/models';
+import { Chapter } from '@/lib/db/model';
 import { connectToDatabase } from '@/lib/db/mongoose';
 import { NextResponse, NextRequest } from 'next/server';
 

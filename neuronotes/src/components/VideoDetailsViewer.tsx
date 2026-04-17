@@ -168,7 +168,7 @@ const VideoDetailsViewer: React.FC<VideoDetailsViewerProps> = ({ videoUrl }) => 
 
           {/* Channel Info */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gray-200 dark:bg-zinc-700 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-gray-200 dark:bg-zinc-700 rounded-full flex items-center justify-center shrink-0">
               <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
                 {videoInfo.channelTitle.charAt(0).toUpperCase()}
               </span>

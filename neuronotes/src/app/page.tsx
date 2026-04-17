@@ -104,7 +104,7 @@ const Page = () => {
   // Loading state - similar to the exam details page
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-700 dark:text-gray-300">Loading dashboard data...</p>
@@ -116,7 +116,7 @@ const Page = () => {
   // Error state
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-white to-gray-50 dark:from-black dark:to-gray-900 flex items-center justify-center">
         <div className="max-w-md mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg">
           <h2 className="text-2xl font-bold text-red-500 mb-4">Error</h2>
           <p className="text-gray-700 dark:text-gray-300 mb-4">{error}</p>

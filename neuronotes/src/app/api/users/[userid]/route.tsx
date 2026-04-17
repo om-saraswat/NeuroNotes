@@ -2,10 +2,10 @@ import { User, UserGenerationStatus } from '../../../../lib/db/model';
 import { connectToDatabase } from '../../../../lib/db/mongoose';
 import { NextResponse, NextRequest } from 'next/server';
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ userId: string }>}) {
+export async function GET(request: NextRequest, { params }: { params: { userId: string }}) {
     try {
         await connectToDatabase();
-        const {userId} = await params; 
+        const {userId} = params; 
         const user = await User.findOne({_id: userId});
         if(user){
             const status = await UserGenerationStatus.findOne({ userId: user._id });

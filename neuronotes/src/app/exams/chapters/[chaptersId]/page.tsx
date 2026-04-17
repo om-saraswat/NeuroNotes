@@ -280,7 +280,7 @@ const ChapterPage: React.FC = () => {
             <div className="h-full p-2 flex flex-col">
               {selectedVideo && (
                 <div className="h-full flex flex-col">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     {/* Use renderKey to force remounting */}
                     <VideoPlayer key={`${selectedVideo}-${renderKey}`} url={selectedVideo} />
                   </div>

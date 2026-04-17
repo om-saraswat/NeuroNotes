@@ -7,7 +7,7 @@ export default function LoginPage() {
   const { data: session } = useSession();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-black dark:to-slate-900 flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-black dark:to-slate-900 flex flex-col relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:32px_32px]"></div>
       
@@ -19,7 +19,7 @@ export default function LoginPage() {
         {session ? (
           <Card className="w-full max-w-md backdrop-blur-sm bg-white/80 dark:bg-black/80 border-slate-200/50 dark:border-slate-800/50 shadow-2xl shadow-black/5 dark:shadow-black/20">
             <CardHeader className="text-center pb-2">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 rounded-full flex items-center justify-center mb-4 shadow-lg">
+              <div className="mx-auto w-16 h-16 bg-linear-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 rounded-full flex items-center justify-center mb-4 shadow-lg">
                 <svg className="w-8 h-8 text-white dark:text-black" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                 </svg>
@@ -46,7 +46,7 @@ export default function LoginPage() {
         ) : (
           <Card className="w-full max-w-md backdrop-blur-sm bg-white/80 dark:bg-black/80 border-slate-200/50 dark:border-slate-800/50 shadow-2xl shadow-black/5 dark:shadow-black/20">
             <CardHeader className="text-center pb-2">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 rounded-full flex items-center justify-center mb-4 shadow-lg">
+              <div className="mx-auto w-16 h-16 bg-linear-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-200 rounded-full flex items-center justify-center mb-4 shadow-lg">
                 <svg className="w-8 h-8 text-white dark:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>

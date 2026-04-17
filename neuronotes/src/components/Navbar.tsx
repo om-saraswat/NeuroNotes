@@ -27,7 +27,7 @@ export default function Navbar() {
       <div className="container mx-auto flex items-center justify-between px-3">
         <div className="text-xl font-bold tracking-tight">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-5 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-5 flex items-center justify-center shrink-0">
               <Logo size={38} />
             </div>
             <span className="hidden sm:inline dark:text-white">You Education</span>
