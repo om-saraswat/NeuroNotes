@@ -41,14 +41,14 @@ export const Logo: React.FC<LogoProps> = ({ className, size = 40 }) => {
 
   return (
     <div className={className}>
-      <Image 
+      {/* <Image 
         src={logoSrc} 
         alt="YouEducation Logo"
         width={size}
         height={size}
         priority
         key={logoSrc} // Force re-render when src changes
-      />
+      /> */}
     </div>
   );
 };

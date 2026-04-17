@@ -30,7 +30,7 @@ export default function Navbar() {
             <div className="w-10 h-5 flex items-center justify-center shrink-0">
               <Logo size={38} />
             </div>
-            <span className="hidden sm:inline dark:text-white">You Education</span>
+            <span className="hidden sm:inline dark:text-white">NeuroNotes</span>
           </Link>
         </div>
         
