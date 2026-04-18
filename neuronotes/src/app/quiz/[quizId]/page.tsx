@@ -386,7 +386,7 @@ const QuizPage = () => {
                 {/* Progress Bar */}
                 <div className="mt-3 sm:mt-4 w-full bg-gray-200 dark:bg-black/50 rounded-full h-2">
                   <div 
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300"
+                    className="bg-linear-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${getProgressPercentage()}%` }}
                   />
                 </div>

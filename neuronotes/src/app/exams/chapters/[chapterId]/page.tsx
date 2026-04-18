@@ -17,8 +17,9 @@ interface NoteData {
 
 const ChapterPage: React.FC = () => {
   const params = useParams();
-  const chapterId = params.chapterId as string;
-
+  
+  const chapterId = params.chapterId as string;;
+  console.log("Chapter ID from params:", chapterId);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [selectedNote, setSelectedNote] = useState<string | null>(null);
   const [noteData, setNoteData] = useState<NoteData | null>(null);
@@ -114,11 +115,7 @@ const ChapterPage: React.FC = () => {
   // Fetch mind map data when the component mounts
   useEffect(() => {
     const fetchMindMap = async () => {
-      if (!chapterId) {
-        setError("Chapter ID not found");
-        setIsLoading(false);
-        return;
-      }
+      if (!chapterId) return;
 
       // Don't refetch if already loaded
       if (initialMindMapLoaded && mindMapData) {
@@ -128,6 +125,7 @@ const ChapterPage: React.FC = () => {
 
       try {
         setIsLoading(true);
+        console.log("hello "+ chapterId);
         console.log(`Fetching mind map for chapterId: ${chapterId}`);
 
         const response = await fetch(
