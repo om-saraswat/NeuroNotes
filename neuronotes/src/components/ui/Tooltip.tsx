@@ -29,7 +29,7 @@ export function ImageTooltip({ children, imageUrl, alt, width = 400, height = 30
               alt={alt}
               width={width}
               height={height}
-              className="rounded-lg max-w-[500px] max-h-[400px] w-auto h-auto"
+              className="rounded-lg max-w-125 max-h-100 w-auto h-auto"
             />
           </div>
           <div className="w-3 h-3 bg-white dark:bg-gray-800 transform rotate-45 absolute -bottom-1.5 left-1/2 ml-[-6px] border-r border-b border-gray-200 dark:border-gray-700"></div>

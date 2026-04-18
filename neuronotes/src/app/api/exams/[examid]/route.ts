@@ -4,10 +4,10 @@ import { NextResponse, NextRequest } from 'next/server';
 import mongoose from 'mongoose';
 
 export async function GET(request: NextRequest, { params }: { params: { examId: string } }) {
-    try {
-        await connectToDatabase(); // Connect inside the handler
+    try {// Connect inside the handler
         
-        const { examId } = params
+        const { examId } = await params;
+        await connectToDatabase(); 
         const exam = await Exam.findOne({ _id: examId });
 
         if (exam) {
