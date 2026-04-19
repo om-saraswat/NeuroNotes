@@ -15,6 +15,7 @@ import { Footer } from '../../../components/Footer';
 const ExamDetailsPage = () => {
   const params = useParams();
   const examId = params.examID as string; 
+
   const { data: session } = useSession();
   
   const [loading, setLoading] = useState<boolean>(true);
