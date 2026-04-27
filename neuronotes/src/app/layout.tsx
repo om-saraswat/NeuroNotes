@@ -12,7 +12,7 @@ import React from 'react';
 
 export const metadata: Metadata = {
   title: "NeuroNotes",
-  description: "A comprehensive educational platform that transforms traditional learning through AI-powered mind maps, interactive video content, and intelligent note generation. YouEducation makes complex subjects accessible by organizing educational content into visual, hierarchical structures with integrated YouTube videos and automatically generated study notes.",
+  description: "A comprehensive educational platform that transforms traditional learning through AI-powered mind maps, interactive video content, and intelligent note generation. NeuroNotes makes complex subjects accessible by organizing educational content into visual, hierarchical structures with integrated YouTube videos and automatically generated study notes.",
 };
 
 const geistSans = Geist({

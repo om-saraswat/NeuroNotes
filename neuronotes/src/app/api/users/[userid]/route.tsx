@@ -2,12 +2,12 @@ import { User, UserGenerationStatus } from '../../../../lib/db/model';
 import { connectToDatabase } from '../../../../lib/db/mongoose';
 import { NextResponse, NextRequest } from 'next/server';
 
-export async function GET(request: NextRequest, { params }: { params: { userId: string }}) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ userid: string }> }) {
     try {
         await connectToDatabase();
-        const {userId} = params; 
-        const user = await User.findOne({_id: userId});
-        if(user){
+        const { userid } = await params;
+        const user = await User.findOne({ _id: userid });
+        if (user) {
             const status = await UserGenerationStatus.findOne({ userId: user._id });
             const payload = {
                 ...user.toObject(),
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
                 isGeneratingQuiz: status?.isGeneratingQuiz ?? false,
             };
             return NextResponse.json(payload, { status: 200, headers: { 'Content-Type': 'application/json' } });
-        }else{
+        } else {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
     } catch (error) {

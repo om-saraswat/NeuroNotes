@@ -2,12 +2,12 @@ import { Chapter } from '@/lib/db/model';
 import { connectToDatabase } from '@/lib/db/mongoose';
 import { NextResponse, NextRequest } from 'next/server';
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ chapterId: string }>}) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ chapterid: string }>}) {
     try {
         await connectToDatabase(); // Connect inside the handler
         
-        const {chapterId} = await params;
-        const chapter = await Chapter.findOne({_id: chapterId});
+        const {chapterid} = await params;
+        const chapter = await Chapter.findOne({_id: chapterid});
         if (chapter) {
             // return chapter data as JSON with status 200     
             return NextResponse.json(chapter.toObject(), {status: 200, headers: {'Content-Type': 'application/json'}});
@@ -20,12 +20,12 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 }
 
 // Delete
-export async function DELETE(request: NextRequest, { params }: { params: Promise<{ chapterId: string }>}) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ chapterid: string }>}) {
     try {
         await connectToDatabase(); // Connect inside the handler
         
-        const {chapterId} = await params;
-        const deletedChapter = await Chapter.findByIdAndDelete(chapterId);
+        const {chapterid} = await params;
+        const deletedChapter = await Chapter.findByIdAndDelete(chapterid);
         if (deletedChapter) {
             return NextResponse.json({message: 'Chapter deleted successfully'}, {status: 200});
         }
@@ -37,13 +37,13 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 }
 
 // Update
-export async function PUT(request: NextRequest, { params }: { params: Promise<{ chapterId: string }>}) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ chapterid: string }>}) {
     try {
         await connectToDatabase(); // Connect inside the handler
         
-        const {chapterId} = await params;
+        const {chapterid} = await params;
         const updateData = await request.json();
-        const updatedChapter = await Chapter.findByIdAndUpdate(chapterId, updateData, {new: true});
+        const updatedChapter = await Chapter.findByIdAndUpdate(chapterid, updateData, {new: true});
         if (updatedChapter) {
             return NextResponse.json(updatedChapter.toObject(), {status: 200});
         }

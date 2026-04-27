@@ -10,18 +10,18 @@ interface LogoProps {
 export const Logo: React.FC<LogoProps> = ({ className, size = 40 }) => {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  
+
   // Don't set an initial value - we'll handle this in the rendering instead
   const [logoSrc, setLogoSrc] = useState<string | null>(null);
-  
+
   // Wait for component to be mounted to avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
-    
+
     // Check system preference immediately on client side
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     setLogoSrc(prefersDark ? 'https://res.cloudinary.com/drdt8dznr/image/upload/v1751210151/dark_logo_b7ox1b.png' : 'https://res.cloudinary.com/drdt8dznr/image/upload/v1751210150/bright_logo_pttpeu.png');
-    
+
     // Update logo when theme changes
     if (resolvedTheme) {
       setLogoSrc(resolvedTheme === 'dark' ? 'https://res.cloudinary.com/drdt8dznr/image/upload/v1751210151/dark_logo_b7ox1b.png' : 'https://res.cloudinary.com/drdt8dznr/image/upload/v1751210150/bright_logo_pttpeu.png');
@@ -43,7 +43,7 @@ export const Logo: React.FC<LogoProps> = ({ className, size = 40 }) => {
     <div className={className}>
       {/* <Image 
         src={logoSrc} 
-        alt="YouEducation Logo"
+        alt="NeuroNotes Logo"
         width={size}
         height={size}
         priority

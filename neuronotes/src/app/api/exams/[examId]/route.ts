@@ -3,7 +3,7 @@ import { connectToDatabase } from '../../../../lib/db/mongoose';
 import { NextResponse, NextRequest } from 'next/server';
 import mongoose from 'mongoose';
 
-export async function GET(request: NextRequest, { params }: { params: { examId: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ examId: string }> }) {
     try {// Connect inside the handler
         
         const { examId } = await params;
