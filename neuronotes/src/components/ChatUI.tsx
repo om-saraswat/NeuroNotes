@@ -23,7 +23,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
-  
+
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [windowSize] = useState(2);
@@ -35,7 +35,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
   const [showTimeRange, setShowTimeRange] = useState(false);
   const [manualStartTime, setManualStartTime] = useState(0);
   const [manualEndTime, setManualEndTime] = useState(300);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const lastFetchedPosition = useRef(0);
   const { currentPosition } = useVideoPlayer();
@@ -81,7 +81,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
         lastFetchedPosition.current === 0
       ) {
         lastFetchedPosition.current = currentPosition?.playedSeconds || 0;
-        
+
         if (!customTimeRange) {
           fetchTranscript();
         }
@@ -97,17 +97,17 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
 
   const fetchTranscript = async (useCustomRange = false) => {
     const videoId = source?.type === 'youtube' ? getYouTubeVideoId(source.content) : '';
-    
+
     if (!videoId) {
       console.log("No valid YouTube video ID available, skipping transcript fetch");
       return;
     }
-    
+
     try {
       setIsTranscriptFetching(true);
-      
+
       let fetchStart, fetchEnd;
-      
+
       if (useCustomRange) {
         fetchStart = manualStartTime;
         fetchEnd = manualEndTime;
@@ -121,19 +121,19 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
           fetchEnd = currentPosition.playedSeconds + (windowSize * 60);
         }
       }
-      
+
       setStartTime(fetchStart);
       setEndTime(fetchEnd);
-      
+
       console.log(`Fetching transcript for video ${videoId} from ${formatTime(fetchStart)} to ${formatTime(fetchEnd)}`);
       const res = await fetch(`/api/transcript?videoId=${videoId}&start=${fetchStart}&end=${fetchEnd}`);
-      
+
       if (!res.ok) {
         throw new Error(`Failed to fetch transcript: ${res.status} ${res.statusText}`);
       }
-      
+
       const data = await res.json();
-      
+
       if (data.transcript) {
         console.log(`Received transcript with length: ${data.transcript.length} characters`);
         setTranscript(data.transcript);
@@ -151,7 +151,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
 
   const handleSend = async () => {
     if (!inputMessage.trim()) return;
-    
+
     const userMessage: Message = {
       message: inputMessage,
       sender: "user",
@@ -164,11 +164,11 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
 
     try {
       const lastTwoMessages = [...messages, userMessage].slice(-3);
-      
+
       let context = '';
       if (source?.type === 'youtube') {
         context = transcript;
-        
+
         if (!context || context.length < 10) {
           const errorMessage: Message = {
             message: "I don't have any transcript context for this part of the video. Please wait while I fetch the latest transcript.",
@@ -201,13 +201,13 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
       }
 
       const responseData = await response.json();
-      
+
       const botMessage: Message = {
         message: responseData.reply,
         sender: "bot",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
-      
+
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       console.error("Error in chat:", error);
@@ -232,15 +232,15 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
   // Update the manual time range setters
   const handleStartTimeChange = (value: number) => {
     const newStart = Number(value);
-    
+
     // Don't allow start to exceed end - 10 seconds
     const validStart = Math.min(newStart, manualEndTime - 10);
-    
+
     // Enforce 5-minute max range
     const maxRangeExceeded = manualEndTime - validStart > 300;
-    
+
     setManualStartTime(validStart);
-    
+
     // Only adjust end time if max range is exceeded
     if (maxRangeExceeded) {
       setManualEndTime(validStart + 300);
@@ -249,15 +249,15 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
 
   const handleEndTimeChange = (value: number) => {
     const newEnd = Number(value);
-    
+
     // Don't allow end to be less than start + 10 seconds
     const validEnd = Math.max(newEnd, manualStartTime + 10);
-    
+
     // Enforce 5-minute max range
     const maxRangeExceeded = validEnd - manualStartTime > 300;
-    
+
     setManualEndTime(validEnd);
-    
+
     // Only adjust start time if max range is exceeded
     if (maxRangeExceeded) {
       setManualStartTime(validEnd - 300);
@@ -268,11 +268,11 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
     if (currentPosition?.playedSeconds) {
       const currentTime = currentPosition.playedSeconds;
       const videoDuration = currentPosition.duration || 600;
-      
+
       // Calculate the start and end times (±2.5 minutes from current position)
       const start = Math.max(0, currentTime - 150); // 2.5 min = 150 seconds
       const end = Math.min(videoDuration, currentTime + 150);
-      
+
       setManualStartTime(start);
       setManualEndTime(end);
       setCustomTimeRange(true);
@@ -355,9 +355,9 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
   return (
     <div className="flex flex-col h-full bg-white dark:bg-zinc-900 text-black dark:text-white">
       <RangeSliderStyles />
-      
+
       {/* Header */}
-      <div className="shrink-0 border-b border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/90 px-6 py-4">
+      <div className="flex-shrink-0 border-b border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/90 px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold tracking-tight">AI Assistant</h2>
@@ -365,7 +365,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
               {source?.type === 'youtube' ? 'Discussing video content' : 'Analyzing document'}
             </p>
           </div>
-          
+
           {source?.type === 'youtube' && (
             <button
               onClick={() => setShowTimeRange(!showTimeRange)}
@@ -387,12 +387,12 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
                 <span className="font-medium">Time Range</span>
                 <span className="text-gray-500 dark:text-gray-400">
                   {((manualEndTime - manualStartTime) / 60).toFixed(1)} minutes
-                  {(manualEndTime - manualStartTime) / 60 >= 5 && 
+                  {(manualEndTime - manualStartTime) / 60 >= 5 &&
                     <span className="ml-1 text-blue-500 dark:text-blue-400">(max)</span>
                   }
                 </span>
               </div>
-              
+
               {/* Dual Range Slider */}
               <div className="relative pt-6 pb-2">
                 {/* Time indicators */}
@@ -400,19 +400,19 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
                   <span>Start: {formatTime(manualStartTime)}</span>
                   <span>End: {formatTime(manualEndTime)}</span>
                 </div>
-                
+
                 {/* Track */}
                 <div className="absolute h-2 bg-gray-200 dark:bg-zinc-700 rounded-lg left-0 right-0 top-6"></div>
-                
+
                 {/* Active track */}
-                <div 
+                <div
                   className="absolute h-2 bg-blue-500 dark:bg-blue-600 rounded-lg top-6"
                   style={{
                     left: `${(manualStartTime / (currentPosition?.duration || 600)) * 100}%`,
                     right: `${100 - ((manualEndTime / (currentPosition?.duration || 600)) * 100)}%`
                   }}
                 ></div>
-                
+
                 {/* Start thumb */}
                 <input
                   type="range"
@@ -427,7 +427,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
                     zIndex: 20,
                   }}
                 />
-                
+
                 {/* End thumb */}
                 <input
                   type="range"
@@ -443,7 +443,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
                   }}
                 />
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <button
                   onClick={setCurrentContextWindow}
@@ -459,7 +459,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
                   {isTranscriptFetching ? '⏳ Loading...' : 'Apply Range'}
                 </button>
               </div>
-              
+
               {customTimeRange && (
                 <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2">
                   <span>Context: {formatTime(startTime)} - {formatTime(endTime)}</span>
@@ -482,23 +482,21 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
           >
             <div className={`max-w-[80%] ${msg.sender === 'user' ? 'order-2' : 'order-1'}`}>
               <div
-                className={`px-4 py-3 rounded-2xl shadow-sm ${
-                  msg.sender === 'user'
+                className={`px-4 py-3 rounded-2xl shadow-sm ${msg.sender === 'user'
                     ? 'bg-blue-500 text-white ml-auto'
                     : 'bg-gray-50 dark:bg-zinc-800 text-black dark:text-white border border-gray-200 dark:border-zinc-700'
-                }`}
+                  }`}
               >
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.message}</p>
               </div>
-              <div className={`text-xs text-gray-500 dark:text-gray-400 mt-1 ${
-                msg.sender === 'user' ? 'text-right' : 'text-left'
-              }`}>
+              <div className={`text-xs text-gray-500 dark:text-gray-400 mt-1 ${msg.sender === 'user' ? 'text-right' : 'text-left'
+                }`}>
                 {msg.timestamp}
               </div>
             </div>
           </div>
         ))}
-        
+
         {isLoading && (
           <div className="flex justify-start">
             <div className="bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 px-4 py-3 rounded-2xl shadow-sm">
@@ -513,12 +511,12 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
             </div>
           </div>
         )}
-        
+
         <div ref={messagesEndRef} />
       </div>
 
       {/* Input */}
-      <div className="shrink-0 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/90 px-6 py-4">
+      <div className="flex-shrink-0 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/90 px-6 py-4">
         <div className="flex items-end gap-3">
           <div className="flex-1">
             <textarea
@@ -539,14 +537,14 @@ const ChatUI: React.FC<ChatUIProps> = ({ source = { type: 'markdown', content: '
           <button
             onClick={handleSend}
             disabled={!inputMessage.trim() || isLoading}
-            className="shrink-0 w-11 h-11 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            className="flex-shrink-0 w-11 h-11 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
           </button>
         </div>
-        
+
         <div className="flex items-center justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
           <span>Press Enter to send, Shift+Enter for new line</span>
           <span>{inputMessage.length}/1000</span>
